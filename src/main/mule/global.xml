@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a5180b16-cf63-4539-86cf-4079aa9d306a" >
+		<http:listener-connection host="0.0.0.0" port="${http:port}" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="2ed8bcb2-57b9-455c-8833-f8874a845e89" >
+		<db:my-sql-connection host="db4free.net" port="3306" user="mulesoft2021" password="Mulesoft123$" database="training2021" />
+	</db:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="bd4786f8-74c4-4713-a305-91267ecf38ce" file="config.yaml" />
+</mule>
