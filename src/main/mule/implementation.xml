@@ -6,8 +6,6 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	
-	<configuration-properties doc:name="Configuration properties" doc:id="8fd5102c-05a1-4d24-aa19-812481f3634a" file="config.yaml" />
 	<flow name="getCarRentals" doc:id="f1a89ba8-b8ea-4f08-9cbb-48803d3236ee" >
 		<try doc:name="Try" doc:id="2b36dff1-abbe-49c6-aa01-5bb329318f1d" >
 			<db:select doc:name="Select" doc:id="e12eece4-f492-4309-af3f-a126cab125e5" config-ref="Database_Config">

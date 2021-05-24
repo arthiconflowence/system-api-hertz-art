@@ -7,11 +7,14 @@
 	xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a5180b16-cf63-4539-86cf-4079aa9d306a" >
-		<http:listener-connection host="0.0.0.0" port="${http:port}" />
+	
+	<configuration-properties doc:name="Configuration properties" doc:id="39f175ac-09a3-41aa-8ef3-37a47ce01ec4" file="config.yaml" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="dc641070-3d0e-4438-956d-ddf97494f71f" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
 	</http:listener-config>
-	<db:config name="Database_Config" doc:name="Database Config" doc:id="2ed8bcb2-57b9-455c-8833-f8874a845e89" >
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="4bf75c54-8087-494d-b30e-b31953c91c82" >
 		<db:my-sql-connection host="db4free.net" port="3306" user="mulesoft2021" password="Mulesoft123$" database="training2021" />
 	</db:config>
-	<configuration-properties doc:name="Configuration properties" doc:id="bd4786f8-74c4-4713-a305-91267ecf38ce" file="config.yaml" />
+	
+	
 </mule>
