@@ -1,0 +1,24 @@
+[
+    {
+        "ID": 1,
+        "pickupLocation": "OHare",
+        "dropoffLocation": "Midway",
+        "rentDate": "2021-03-22",
+        "price": 50,
+        "car":{
+        	"brand": "Nissan Sentra",
+        	"totalSeats": 7
+        	}
+    },
+    {
+        "ID": 2,
+        "pickupLocation": "OHare",
+        "dropoffLocation": "Midway",
+        "rentDate": "2021-03-22",
+        "price": 80,
+        "car":{
+        	"brand": "Volvo XC90",
+       	     "totalSeats":7
+       	     }
+	}
+]

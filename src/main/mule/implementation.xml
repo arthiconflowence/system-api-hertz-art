@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c6489a42-3b5b-4a6f-a3d3-a7d5f198132a" >
+		<http:listener-connection host="0.0.0.0" port="8083" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="d9a3a300-89b9-4e5b-84ea-a19f3bf0ceb8" >
+		<db:my-sql-connection host="db4free.net" port="3306" user="mulesoft2021" password="Mulesoft123$" database="training2021" />
+	</db:config>
+	<db:config name="Database_Config1" doc:name="Database Config" doc:id="a842fa65-fd63-48a4-a8be-b60a6a44a918" >
+		<db:my-sql-connection host="db4free.net" port="3306" user="mulesoft2021" password="Mulesoft123$" database="training2021" />
+	</db:config>
+	<flow name="getCarRentals" doc:id="f1a89ba8-b8ea-4f08-9cbb-48803d3236ee" >
+		<try doc:name="Try" doc:id="2b36dff1-abbe-49c6-aa01-5bb329318f1d" >
+			<db:select doc:name="Select" doc:id="e12eece4-f492-4309-af3f-a126cab125e5" config-ref="Database_Config1">
+			<db:sql><![CDATA[select * from hertz]]></db:sql>
+		</db:select>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="8be920b0-eaf7-4f2b-9e3f-20838932bcf9" type="ANY">
+					<ee:transform doc:name="Transform Message" doc:id="5ab6ba28-de11-4f9c-878c-c834fc503796" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+[]]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</on-error-continue>
+			</error-handler>
+		</try>
+		<ee:transform doc:name="Transform Message" doc:id="84865915-da83-4a09-a8a9-f8ba49ca800d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	ID: payload01.ID,
+	pickupLocation: payload01.pickupLocation default "",
+	dropoffLocation: payload01.dropoffLocation default "",
+	rentDate: payload01.rentDate default "",
+	price: payload01.price default 0,
+	car: {
+		brand: payload01.carBrand default "",
+		totalSeats: payload01.totalSeats as Number default 0
+	}
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getCarRentalsByID" doc:id="fc226225-132a-458b-a15e-43d78130f66a" >
+		<db:select doc:name="Copy_of_Select" doc:id="3ee7e976-ee94-416d-930a-92910084e553" config-ref="Database_Config1" >
+			<db:sql ><![CDATA[select * from hertz where ID = :ID]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{'ID':attributes.uriParams.ID}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Copy_of_Transform Message" doc:id="f7da11ed-6e33-4421-b558-ebcaf264b3c1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	ID: payload01.ID,
+	pickupLocation: payload01.pickupLocation default "",
+	dropoffLocation: payload01.dropoffLocation default "",
+	rentDate: payload01.rentDate default "",
+	price: payload01.price default 0,
+	car: {
+		brand: payload01.carBrand default "",
+		totalSeats: payload01.totalSeats as Number default 0
+	}
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="postRental" doc:id="97109a90-4938-4448-9616-aab91d806d4b" >
+		<set-payload value='{"message":"Car Rental added(but not really)}' doc:name="Set Payload" doc:id="728ec808-6353-4527-82cb-f3045f21d1ae" />
+	</flow>
+</mule>
