@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	
 	<configuration-properties doc:name="Configuration properties" doc:id="39f175ac-09a3-41aa-8ef3-37a47ce01ec4" file="config.yaml" />
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="dc641070-3d0e-4438-956d-ddf97494f71f" >
-		<http:listener-connection host="${http.host}" port="${http.port}" />
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
 	</http:listener-config>
 	<db:config name="Database_Config" doc:name="Database Config" doc:id="4bf75c54-8087-494d-b30e-b31953c91c82" >
 		<db:my-sql-connection host="db4free.net" port="3306" user="mulesoft2021" password="Mulesoft123$" database="training2021" />
